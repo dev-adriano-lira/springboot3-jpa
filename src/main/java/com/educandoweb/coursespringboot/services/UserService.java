@@ -4,11 +4,14 @@ import java.nio.file.ReadOnlyFileSystemException;
 import java.util.List;
 import java.util.Optional;
 
+import com.educandoweb.coursespringboot.services.exceptions.DataBaseException;
 import com.educandoweb.coursespringboot.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.educandoweb.coursespringboot.entities.User;
 import com.educandoweb.coursespringboot.repositories.UserRepository;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -31,7 +34,13 @@ public class UserService {
     }
 
     public void delete(Long id) {
-        userRepository.deleteById(id);
+        try {
+            userRepository.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new ResourceNotFoundException(id);
+        } catch (DataIntegrityViolationException e) {
+            throw new DataBaseException(e.getMessage());
+        }
     }
 
     public User update(Long id, User obj) {
