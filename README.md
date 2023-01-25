@@ -1,4 +1,4 @@
-# Web Services application with Spring Boot and JPA
+# Web Services application with Spring Boot and JPA/Hibernate
 
 ## Objectives
 * Create a Spring Boot application;
@@ -19,7 +19,7 @@
 * Hibernate;
 * H2;
 * MySQL;
-* Postman;
+* Postman.
 
 ## Domain model
 ![DomainModelUML.png](DomainModelUML.png)
